@@ -1,0 +1,14 @@
+export { default as Login } from '../components/pages/Login';
+export { default as ProductPage } from '../components/pages/ProductPage';
+export { default as Main } from '../components/pages/Main';
+export { default as Registration } from '../components/pages/Registration';
+export { default as CommentsBlock } from './CommentsBlock';
+export { default as RegistrationBody } from './RegistrationBody';
+export { default as ProductsGrid } from './ProductsGrid';
+export { default as Header } from './Header';
+export { default as CommentInput } from './CommentInput';
+export { default as Comment } from './Comment';
+export { default as ProductItem } from './ProductItem';
+export { default as ProductPageBody } from './ProductPageBody';
+export { default as LoginBody } from './LoginBody';
+export { default as RatingStars } from './RatingStars';

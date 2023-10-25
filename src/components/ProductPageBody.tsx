@@ -22,7 +22,8 @@ const ProductPageBody: FC<IProduct> = (product) => {
               src={data.image}
               alt={data.title}
               className='col-left'
-              style={{ maxWidth: '100%', height: 'auto' }}></StyledImgOfProduct>
+              style={{ maxWidth: '100%', height: 'auto' }}
+            ></StyledImgOfProduct>
           </Col>
           <Col md='6' xs='12' className='col-right mt-3'>
             <Row className='mb-3'>

@@ -1,5 +1,5 @@
 /** @format */
-import { FC, useEffect, useState } from 'react'
+import { FC, useEffect } from 'react'
 import { Row, Button } from 'react-bootstrap'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
@@ -11,7 +11,7 @@ import {
   StyledHeading,
   StyledFormGroup,
   StyledFormLabel,
-  StyledFormControl,
+  StyledFormControl
 } from '../styled/LoginBodyStyles'
 import { RootState } from '../redux/rootReducer'
 import NotificationModal from './NotificationModal'
@@ -26,11 +26,10 @@ const validationSchema = Yup.object().shape({
   email: Yup.string()
     .email('Please enter a valid email address')
     .required('This field is required'),
-  password: Yup.string().required('This field is required'),
+  password: Yup.string().required('This field is required')
 })
 
 const LoginBody: FC = () => {
-
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const error = useSelector((state: RootState) => state.auth.error)
@@ -46,11 +45,12 @@ const LoginBody: FC = () => {
     dispatch(setError(null))
   }
   useEffect(() => {
-    if(isAuth){
+    if (isAuth) {
       setTimeout(() => {
-      navigate('/')
-    }, 500)}
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+        navigate('/')
+      }, 500)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuth])
 
   return (
@@ -61,10 +61,11 @@ const LoginBody: FC = () => {
           <Formik
             initialValues={{
               email: '',
-              password: '',
+              password: ''
             }}
             validationSchema={validationSchema}
-            onSubmit={handleSubmitForm}>
+            onSubmit={handleSubmitForm}
+          >
             <Form>
               <StyledFormGroup>
                 <StyledFormLabel>Email address</StyledFormLabel>
@@ -89,13 +90,21 @@ const LoginBody: FC = () => {
               <Button
                 data-testid='submit-button'
                 className='mb-3'
-                type='submit'>
+                type='submit'
+              >
                 Login
               </Button>
             </Form>
           </Formik>
         </StyledCol>
-        {error && <NotificationModal show={true} message={error} type="error" onClose={handleCloseModalError} />}
+        {error && (
+          <NotificationModal
+            show={true}
+            message={error}
+            type='error'
+            onClose={handleCloseModalError}
+          />
+        )}
       </StyledFormContainer>
     </Row>
   )

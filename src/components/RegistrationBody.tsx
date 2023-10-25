@@ -4,14 +4,14 @@ import { Row, Button } from 'react-bootstrap'
 import { Formik, Form, Field, ErrorMessage, FormikHelpers } from 'formik'
 import * as Yup from 'yup'
 import { useNavigate } from 'react-router-dom'
-import { useDispatch,useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux'
 import {
   StyledCol,
   StyledHeading,
   StyledFormContainer,
   StyledFormGroup,
   StyledFormLabel,
-  StyledFormControl,
+  StyledFormControl
 } from '../styled/RegistrationBodyStyles'
 import { IFormValues } from '../components/interfaces'
 import NotificationModal from './NotificationModal'
@@ -20,7 +20,7 @@ import { setError } from '../redux/ducks/auth'
 
 const RegistrationBody: FC = () => {
   const [isSuccess, setIsSuccess] = useState(false)
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
   const error = useSelector((state: RootState) => state.auth.error)
   const navigate = useNavigate()
 
@@ -35,21 +35,28 @@ const RegistrationBody: FC = () => {
       .required('This field is required'),
     confirmPassword: Yup.string()
       .oneOf([Yup.ref('password'), undefined], 'Passwords must match')
-      .required('This field is required'),
+      .required('This field is required')
   })
 
-  const handleSubmit = async (values: IFormValues, { resetForm }: FormikHelpers<IFormValues>) => {
+  const handleSubmit = async (
+    values: IFormValues,
+    { resetForm }: FormikHelpers<IFormValues>
+  ) => {
     try {
-      const response = await dispatch({ type: 'REGISTRATION', email: values.email, password: values.password });
+      const response = await dispatch({
+        type: 'REGISTRATION',
+        email: values.email,
+        password: values.password
+      })
       if (response) {
-        console.log(response);
-        setIsSuccess(true);
-        resetForm();
+        console.log(response)
+        setIsSuccess(true)
+        resetForm()
       }
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
-  };
+  }
   const handleCloseModal = () => {
     dispatch(setError(null))
     setIsSuccess(false)
@@ -60,7 +67,6 @@ const RegistrationBody: FC = () => {
   const handleCloseModalError = () => {
     dispatch(setError(null))
     setIsSuccess(false)
-
   }
 
   return (
@@ -74,10 +80,11 @@ const RegistrationBody: FC = () => {
               firstName: '',
               lastName: '',
               password: '',
-              confirmPassword: '',
+              confirmPassword: ''
             }}
             validationSchema={validationSchema}
-            onSubmit={handleSubmit}>
+            onSubmit={handleSubmit}
+          >
             {({ isValid }) => (
               <Form>
                 <StyledFormGroup>
@@ -134,8 +141,22 @@ const RegistrationBody: FC = () => {
               </Form>
             )}
           </Formik>
-          {error && <NotificationModal show={true} message={error} type="error" onClose={handleCloseModalError} />}
-                {isSuccess && <NotificationModal show={true} message="Your registration was successful." type="success" onClose={handleCloseModal} />}
+          {error && (
+            <NotificationModal
+              show={true}
+              message={error}
+              type='error'
+              onClose={handleCloseModalError}
+            />
+          )}
+          {isSuccess && (
+            <NotificationModal
+              show={true}
+              message='Your registration was successful.'
+              type='success'
+              onClose={handleCloseModal}
+            />
+          )}
         </StyledCol>
       </StyledFormContainer>
     </Row>

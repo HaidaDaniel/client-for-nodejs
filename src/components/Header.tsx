@@ -7,18 +7,18 @@ import { useDispatch, useSelector } from 'react-redux'
 import {
   StyledNavbar,
   StyledNavbarBrand,
-  StyledNavbarCollapse,
+  StyledNavbarCollapse
 } from '../styled/HeaderStyles'
 import { RootState } from '../redux/rootReducer'
 
 const Header: FC = () => {
   const auth = useSelector((state: RootState) => state.auth)
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
   // const navigate = useNavigate();
   const handleLogout = () => {
-    dispatch({ type: 'LOGOUT' });
+    dispatch({ type: 'LOGOUT' })
     console.log(auth)
-  };
+  }
 
   return (
     <StyledNavbar expand='lg'>
@@ -28,7 +28,8 @@ const Header: FC = () => {
       <Navbar.Toggle aria-controls='basic-navbar-nav' />
       <StyledNavbarCollapse
         id='basic-navbar-nav'
-        className='justify-content-end mx-2'>
+        className='justify-content-end mx-2'
+      >
         <Nav className='ml-auto mx-2'>
           {!auth.isLoading && auth.user === null && (
             <>
@@ -41,8 +42,8 @@ const Header: FC = () => {
             </>
           )}
           {!auth.isLoading && auth.user !== null && (
-  <Button onClick={handleLogout}>Logout</Button>
-)}
+            <Button onClick={handleLogout}>Logout</Button>
+          )}
         </Nav>
       </StyledNavbarCollapse>
     </StyledNavbar>

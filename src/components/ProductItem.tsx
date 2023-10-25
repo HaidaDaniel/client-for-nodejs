@@ -12,7 +12,7 @@ import {
   ProductCard,
   ProductImageBox,
   StyledLink,
-  StyledCardTitle,
+  StyledCardTitle
 } from '../styled/ProductItemStyles'
 import { IProducts } from '../components/interfaces'
 
@@ -37,7 +37,8 @@ const ProductItem: FC<ProductItemProps> = ({ product }) => (
         <div>
           <RatingStars
             isInput={false}
-            rating={product.rating?.rate || 0}></RatingStars>
+            rating={product.rating?.rate || 0}
+          ></RatingStars>
           <h4>{product.rating?.count} orders</h4>
         </div>
       </ProductCard>

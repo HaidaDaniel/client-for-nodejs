@@ -8,7 +8,7 @@ import { RatingStars } from './'
 import {
   StyledFormGroup,
   StyledFormLabel,
-  StyledTextArea,
+  StyledTextArea
 } from '../styled/CommentInputStyles'
 import { postReview } from '../api'
 
@@ -28,7 +28,7 @@ const CommentInput: FC<CommentInputProps> = ({ productId }) => {
     const data = {
       productId,
       rating,
-      text,
+      text
     }
 
     const resultMessage = await postReview(data)

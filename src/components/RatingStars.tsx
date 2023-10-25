@@ -8,7 +8,7 @@ import {
   FilledStar,
   HalfFilled,
   InputRating,
-  MainSpan,
+  MainSpan
 } from '../styled/RatingStarsStyles'
 
 interface RatingStarsProps {
@@ -20,7 +20,7 @@ interface RatingStarsProps {
 const RatingStars: FC<RatingStarsProps> = ({
   rating,
   isInput,
-  onRatingChange,
+  onRatingChange
 }) => {
   const [ratingInput, setRatingInput] = useState(1)
 

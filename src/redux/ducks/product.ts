@@ -39,7 +39,7 @@ type ProductActionTypes =
 const initialState: ProductState = {
   product: null,
   loading: false,
-  error: null,
+  error: null
 }
 
 export default function productReducer(
@@ -51,21 +51,21 @@ export default function productReducer(
       return {
         ...state,
         loading: true,
-        error: null,
+        error: null
       }
     case FETCH_PRODUCT_SUCCESS:
       return {
         ...state,
         product: action.payload,
         loading: false,
-        error: null,
+        error: null
       }
     case FETCH_PRODUCT_FAILURE:
       return {
         ...state,
         product: null,
         loading: false,
-        error: action.payload,
+        error: action.payload
       }
     default:
       return state

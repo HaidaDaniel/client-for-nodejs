@@ -8,7 +8,7 @@ import {
   StyledCardBody,
   StyledCardHeader,
   StyledCardText,
-  StyledAuthorText,
+  StyledAuthorText
 } from '../styled/CommentStyles'
 import { IComment } from './interfaces'
 

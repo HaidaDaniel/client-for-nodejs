@@ -1,9 +1,9 @@
 /** @format */
-import { FC } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { Row, Button } from 'react-bootstrap'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import * as Yup from 'yup'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import {
   StyledFormContainer,
@@ -13,6 +13,9 @@ import {
   StyledFormLabel,
   StyledFormControl,
 } from '../styled/LoginBodyStyles'
+import { RootState } from '../redux/rootReducer'
+import NotificationModal from './NotificationModal'
+import { setError } from '../redux/ducks/auth'
 
 interface FormValues {
   email: string
@@ -27,19 +30,28 @@ const validationSchema = Yup.object().shape({
 })
 
 const LoginBody: FC = () => {
+
   const dispatch = useDispatch()
   const navigate = useNavigate()
-
-  const handleSubmitForm = (values: FormValues) => {
-    dispatch({
+  const error = useSelector((state: RootState) => state.auth.error)
+  const isAuth = useSelector((state: RootState) => state.auth.isAuth)
+  const handleSubmitForm = async (values: FormValues) => {
+    await dispatch({
       type: 'LOGIN',
       email: values.email,
       password: values.password
     })
-    setTimeout(() => {
-      navigate(-1)
-    }, 500)
   }
+  const handleCloseModalError = () => {
+    dispatch(setError(null))
+  }
+  useEffect(() => {
+    if(isAuth){
+      setTimeout(() => {
+      navigate('/')
+    }, 500)}
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAuth])
 
   return (
     <Row>
@@ -83,6 +95,7 @@ const LoginBody: FC = () => {
             </Form>
           </Formik>
         </StyledCol>
+        {error && <NotificationModal show={true} message={error} type="error" onClose={handleCloseModalError} />}
       </StyledFormContainer>
     </Row>
   )

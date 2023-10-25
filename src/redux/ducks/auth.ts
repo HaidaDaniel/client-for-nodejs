@@ -88,8 +88,10 @@ function* loginSaga(action: { type: string; email: string; password: string }): 
     localStorage.setItem('token', response.data.accessToken);
     yield put(setAuth(true));
     yield put(setUser(response.data.user));
-  } catch (e:any) {
-    console.log(e.response?.data?.message);
+  } catch (e: any) {
+    const error: string = e.response?.data?.message;
+    console.log(error)
+    yield put({ type: SET_ERROR, error });
   }
 }
 

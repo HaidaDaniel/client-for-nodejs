@@ -1,6 +1,6 @@
 /** @format */
 import { useState, FC } from 'react'
-import { Row, Modal, Button } from 'react-bootstrap'
+import { Row, Button } from 'react-bootstrap'
 import { Formik, Form, Field, ErrorMessage, FormikHelpers } from 'formik'
 import * as Yup from 'yup'
 import { useNavigate } from 'react-router-dom'
@@ -16,11 +16,12 @@ import {
 import { IFormValues } from '../components/interfaces'
 import NotificationModal from './NotificationModal'
 import { RootState } from '../redux/rootReducer'
+import { setError } from '../redux/ducks/auth'
 
 const RegistrationBody: FC = () => {
   const [isSuccess, setIsSuccess] = useState(false)
   const dispatch = useDispatch();
-const error = useSelector((state: RootState) => state.auth.error)
+  const error = useSelector((state: RootState) => state.auth.error)
   const navigate = useNavigate()
 
   const validationSchema = Yup.object().shape({
@@ -50,11 +51,16 @@ const error = useSelector((state: RootState) => state.auth.error)
     }
   };
   const handleCloseModal = () => {
+    dispatch(setError(null))
     setIsSuccess(false)
-  
     setTimeout(() => {
       navigate('/login')
     }, 500)
+  }
+  const handleCloseModalError = () => {
+    dispatch(setError(null))
+    setIsSuccess(false)
+
   }
 
   return (
@@ -128,7 +134,7 @@ const error = useSelector((state: RootState) => state.auth.error)
               </Form>
             )}
           </Formik>
-          {error && <NotificationModal show={true} message={error} type="error" onClose={undefined} />}
+          {error && <NotificationModal show={true} message={error} type="error" onClose={handleCloseModalError} />}
                 {isSuccess && <NotificationModal show={true} message="Your registration was successful." type="success" onClose={handleCloseModal} />}
         </StyledCol>
       </StyledFormContainer>

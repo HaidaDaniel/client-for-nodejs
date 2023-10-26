@@ -14,9 +14,10 @@ const ProductPage = () => {
   const { productId } = useParams()
   useEffect(() => {
     productId && dispatch(fetchProductRequest(productId))
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [productId])
   const product = useSelector((state: RootState) => state.product.product)
+
   return (
     <Container>
       <Header />

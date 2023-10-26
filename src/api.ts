@@ -1,11 +1,14 @@
 /** @format */
-import { IProduct, IProducts } from './components/interfaces/'
+import axios from 'axios'
+import { IComment, IProduct, IProducts } from './components/interfaces/'
 
 const PRODUCTS_URL: string | undefined = process.env.REACT_APP_PRODUCTS_URL
 const PRODUCTS_URL_BY_ID: string | undefined =
   process.env.REACT_APP_PRODUCT_BY_ID_URL
 const PRODUCTS_POST_URL_BY_ID: string | undefined =
   process.env.REACT_APP_PRODUCT_POST_BY_ID_URL
+const COMMENT_URL_BY_ID: string | undefined =
+  process.env.REACT_APP_COMMENT_URL_BY_ID
 
 export const fetchProducts = async (): Promise<IProducts[]> => {
   try {
@@ -29,9 +32,28 @@ export const fetchProductById = async (id: number): Promise<IProduct> => {
     }
     const data = await response.text()
     const jsonData = JSON.parse(data)
-    return jsonData.data
+    return jsonData
   } catch (error) {
     console.error('Error in fetchProductById:', error)
+    throw error
+  }
+}
+export const fetchCommentsById = async (id: number): Promise<IComment[]> => {
+  try {
+    console.log(`${COMMENT_URL_BY_ID}${id}/comments`)
+    const response = await axios.get(`${COMMENT_URL_BY_ID}${id}/comments`)
+
+    if (response.status !== 200) {
+      throw new Error('Response is not OK')
+    }
+
+    const jsonData = response.data
+
+    const comments: IComment[] = jsonData
+
+    return comments
+  } catch (error) {
+    console.error('Error in fetchCommentsById:', error)
     throw error
   }
 }
@@ -49,9 +71,9 @@ export async function postReview(data: ISendData) {
       {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json'
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(data)
       }
     )
 

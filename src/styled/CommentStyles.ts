@@ -19,7 +19,7 @@ export const StyledCardText = styled(Card.Text)`
   text-align: left;
 `
 
-export const StyledAuthorText = styled(Card.Text)`
+export const StyledDateText = styled(Card.Text)`
   display: flex;
   justify-content: flex-end;
 `

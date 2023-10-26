@@ -12,6 +12,7 @@ import { IProduct } from '../components/interfaces'
 const ProductPageBody: FC<IProduct> = (product) => {
   const user = useSelector((state: RootState) => state.auth.user)
   const data = product
+  console.log(data)
 
   return (
     <>
@@ -42,7 +43,7 @@ const ProductPageBody: FC<IProduct> = (product) => {
             </Row>
             <Row className='mb-3'>{data.description}</Row>
             <Row className='mb-3 border-top'>
-              {data.comments && <CommentsBlock comments={data.comments} />}
+              <CommentsBlock />
             </Row>
             <Row className='border-top pt-3 mb-3'>
               {user !== null ? (

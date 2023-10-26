@@ -17,6 +17,7 @@ export interface IComment {
   text: string
   rating: number
   commentId: string
+  createdAt: string
 }
 
 export interface IProductData {

@@ -32,7 +32,7 @@ const CommentsBlock: FC = () => {
         <Stack gap={3}>
           {comments && comments.length > 0 ? (
             comments.map((comment: IComment) => (
-              <div key={comment.commentId} data-testid='comment'>
+              <div key={comment._id} data-testid='comment'>
                 <Comment
                   author={comment.author}
                   text={comment.text}

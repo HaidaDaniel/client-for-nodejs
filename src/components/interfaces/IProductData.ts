@@ -13,7 +13,9 @@ export interface IProduct {
   comments?: IComment[]
 }
 export interface IComment {
-  author: string
+  _id?: string
+  productId?: number
+  author?: string
   text: string
   rating: number
   commentId: string
@@ -22,4 +24,9 @@ export interface IComment {
 
 export interface IProductData {
   product: IProduct
+}
+export interface ICommentSend {
+  productId: number
+  text: string
+  rating: number
 }

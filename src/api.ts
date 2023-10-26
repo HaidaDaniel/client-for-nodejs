@@ -1,12 +1,18 @@
 /** @format */
 import axios from 'axios'
-import { IComment, IProduct, IProducts } from './components/interfaces/'
+import {
+  IComment,
+  ICommentSend,
+  IProduct,
+  IProducts
+} from './components/interfaces/'
+import $api from './http'
 
 const PRODUCTS_URL: string | undefined = process.env.REACT_APP_PRODUCTS_URL
 const PRODUCTS_URL_BY_ID: string | undefined =
   process.env.REACT_APP_PRODUCT_BY_ID_URL
-const PRODUCTS_POST_URL_BY_ID: string | undefined =
-  process.env.REACT_APP_PRODUCT_POST_BY_ID_URL
+// const PRODUCTS_POST_URL_BY_ID: string | undefined =
+//   process.env.REACT_APP_PRODUCT_POST_BY_ID_URL
 const COMMENT_URL_BY_ID: string | undefined =
   process.env.REACT_APP_COMMENT_URL_BY_ID
 
@@ -40,7 +46,6 @@ export const fetchProductById = async (id: number): Promise<IProduct> => {
 }
 export const fetchCommentsById = async (id: number): Promise<IComment[]> => {
   try {
-    console.log(`${COMMENT_URL_BY_ID}${id}/comments`)
     const response = await axios.get(`${COMMENT_URL_BY_ID}${id}/comments`)
 
     if (response.status !== 200) {
@@ -58,32 +63,22 @@ export const fetchCommentsById = async (id: number): Promise<IComment[]> => {
   }
 }
 
-interface ISendData {
-  productId: number
-  rating: number
-  text: string
-}
-
-export async function postReview(data: ISendData) {
+export const postReview = async (
+  commentData: ICommentSend
+): Promise<string> => {
   try {
-    const response = await fetch(
-      (PRODUCTS_POST_URL_BY_ID as string) + data.productId,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-      }
+    const id = commentData.productId
+    const response = await $api.post(
+      `${COMMENT_URL_BY_ID}${id}/comments`,
+      commentData
     )
-
-    if (response.ok) {
-      return 'Review sent successfully'
+    if (response.status === 201) {
+      return 'Review posted successfully'
     } else {
-      return 'Error sending review'
+      return 'Failed to post the review'
     }
   } catch (error) {
-    console.error('Error sending review:', error)
-    return 'Error sending review'
+    console.error('Error posting review:', error)
+    return 'Failed to post the review'
   }
 }

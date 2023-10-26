@@ -11,6 +11,7 @@ import {
   StyledTextArea
 } from '../styled/CommentInputStyles'
 import { postReview } from '../api'
+import { ICommentSend } from './interfaces'
 
 interface CommentInputProps {
   productId: number
@@ -25,7 +26,7 @@ const CommentInput: FC<CommentInputProps> = ({ productId }) => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    const data = {
+    const data: ICommentSend = {
       productId,
       rating,
       text

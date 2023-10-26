@@ -12,7 +12,6 @@ import { IProduct } from '../components/interfaces'
 const ProductPageBody: FC<IProduct> = (product) => {
   const user = useSelector((state: RootState) => state.auth.user)
   const data = product
-  console.log(data)
 
   return (
     <>

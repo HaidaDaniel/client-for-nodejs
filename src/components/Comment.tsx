@@ -12,7 +12,7 @@ import { IComment } from './interfaces'
 import { format, parseISO } from 'date-fns'
 
 const Comment: FC<IComment> = ({ text, rating, createdAt }) => {
-  const formattedDate = format(parseISO(createdAt), 'MMMM dd, yyyy HH:mm:ss')
+  const formattedDate = format(parseISO(createdAt), 'MMMM dd, yyyy ')
 
   return (
     <StyledCard>
